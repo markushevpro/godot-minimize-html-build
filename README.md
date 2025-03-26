@@ -19,6 +19,8 @@
     <i>Please <a href="https://github.com/markushevpro/godot-minimize-html-build/issues/new">create an issue</a> if you need support for other operating systems.</i>
 </p>
 
+## Recent update
+- itch.io & servers with gzip compression support
 
 <br />
 
