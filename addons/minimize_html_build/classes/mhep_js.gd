@@ -52,7 +52,7 @@ static func _replace_v4_x( content: String ) -> String:
     # 1.0.1 - fix gzip server response
 	fixed = fixed.replacen(
 			"const tr=getTrackedResponse(response,tracker[file]);return raw?Promise.resolve(tr):tr.arrayBuffer()}", 
-			"const tr=getTrackedResponse(response,tracker[file]);return Promise.resolve(tr.arrayBuffer().then(buffer=>{try{return new Response(pako.inflate(buffer,{headers:tr.headers}))}catch(e){return new Response(buffer))}}))}"
+			"const tr=getTrackedResponse(response,tracker[file]);return Promise.resolve(tr.arrayBuffer().then(buffer=>{try{return new Response(pako.inflate(buffer))}catch(e){return new Response(buffer)}}))}"
 	)
 		
 	# Fix preload
