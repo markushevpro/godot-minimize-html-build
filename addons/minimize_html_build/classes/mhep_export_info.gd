@@ -32,7 +32,7 @@ func _extract_path_info( fullPath: String ):
 	var split: PackedStringArray = fullPath.split( delimiter )
 	
 	path = delimiter.join( split.slice( 0, -1 ))
-	name = split[-1].split( "." )[0]
+	name = ".".join(split[-1].split( "." ).slice(0,-1))
 	
 	MHEPUtils.debug( "Export data fetched:" )
 	MHEPUtils.debug( "- path is \"" + path + "\"" )
