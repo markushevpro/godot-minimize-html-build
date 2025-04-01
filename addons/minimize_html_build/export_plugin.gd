@@ -28,7 +28,7 @@ func _export_begin(
 		_flags: int 
 ):
 	MHEPUtils.enable_debug( is_debug )
-	MHEPUtils.debug( "---- EXPORT STARTED ----" )
+	MHEPUtils.debug( "", "---- EXPORT STARTED ----" )
 	
 	_export_info = MHEPExportInfo.new( path )
 
@@ -38,5 +38,6 @@ func _export_end():
 	var copier = MHEPCopier.new( _export_info )
 	
 	MHEPCompresser.compress( copier )
+	MHEPHTML.fix( _export_info )
 	MHEPJS.fix( _export_info )
-	MHEPUtils.debug( "---- EXPORT FINISHED ----" )
+	MHEPUtils.debug( "", "---- EXPORT FINISHED ----" )

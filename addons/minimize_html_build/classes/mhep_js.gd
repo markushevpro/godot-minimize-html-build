@@ -49,7 +49,7 @@ static func _replace_v4_x( content: String ) -> String:
 	)
 	
 	# Fix loadFetch
-    # 1.0.1 - fix gzip server response
+	# 1.0.1 - fix gzip server response
 	fixed = fixed.replacen(
 			"const tr=getTrackedResponse(response,tracker[file]);return raw?Promise.resolve(tr):tr.arrayBuffer()}", 
 			"const tr=getTrackedResponse(response,tracker[file]);return Promise.resolve(tr.arrayBuffer().then(buffer=>{try{return new Response(pako.inflate(buffer))}catch(e){return new Response(buffer)}}))}"
@@ -60,5 +60,10 @@ static func _replace_v4_x( content: String ) -> String:
 			"me.preloadedFiles.push({path:destPath||pathOrBuffer,buffer:buf}),",
 			"buf.arrayBuffer().then(buffer=>me.preloadedFiles.push({path:destPath||pathOrBuffer,buffer})),"
 	)
+	
+	if fixed != content:
+		MHEPUtils.debug( "JS", "Successfully fixed JS" )
+	else:
+		MHEPUtils.debug( "JS", "JS is NOT fixed. Build may not work as expected" )
 		
 	return fixed

@@ -16,11 +16,15 @@ func _init( copier: MHEPCopier ):
 	_utils = MHEPUtils.new( _info )
 	_compressers = _get_OS_files()
 	
-	MHEPUtils.debug( "- host system: " + _utils.os )
-	MHEPUtils.debug( "- compresser file: " + _compressers[0] )
-	MHEPUtils.debug( "- minifier file: " + _compressers[1] )
+	_debug( "- host system: " + _utils.os )
+	_debug( "- compresser file: " + _compressers[0] )
+	_debug( "- minifier file: " + _compressers[1] )
 	
 	_compress()
+
+
+static func _debug( text: String ):
+	MHEPUtils.debug( "COMPRESS", text )
 
 
 func _compress():
@@ -46,7 +50,7 @@ func _remove_compressers():
 	for filename in _compressers:
 		_info.target_dir.remove( filename )
 		
-	MHEPUtils.debug( "Build directory cleaned" )
+	_debug( "Build directory cleaned" )
 
 
 func _get_OS_files() -> Array:
@@ -71,7 +75,7 @@ func _process_file( compresser: Callable, filename: String ):
 		var new_size = _utils.get_file_size( filename )
 		var diff = original_size - new_size
 		
-		MHEPUtils.debug( 
+		_debug( 
 				filename + 
 				" converted:" + 
 				" from " + MHEPUtils.string_size( original_size ) + 

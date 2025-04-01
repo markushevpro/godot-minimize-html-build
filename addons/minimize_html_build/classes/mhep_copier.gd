@@ -27,6 +27,6 @@ func copy_and_check( filename: String, subdir = "" ):
 	)
 	
 	if FileAccess.file_exists( target ):
-		MHEPUtils.debug( filename + " copied" )
+		MHEPUtils.debug( "COPY", filename + " copied" )
 	else:
 		MHEPUtils.warn( filename + " was not copied. Build may not work as expected" )

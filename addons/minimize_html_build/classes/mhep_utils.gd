@@ -23,9 +23,10 @@ static func warn( text: String ):
 	push_warning( "[MHEP] " + text )
 
 
-static func debug( text: String ):
+static func debug( prefix: String, text: String ):
 	if _debug:
-		print( "[MHEP] " + text )
+		var _pre = " " if prefix == "" else " [" + prefix + "] "
+		print( "[MHEP]" + _pre + text )
 
 
 static func string_size( numeric: int ) -> String:

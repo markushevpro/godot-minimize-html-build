@@ -28,12 +28,16 @@ func in_target_dir( relative: String ) -> String:
 	return target_dir.get_current_dir() + delimiter + relative
 
 
+static func _debug( text: String ):
+	MHEPUtils.debug( "INFO", text )
+
+
 func _extract_path_info( fullPath: String ):
 	var split: PackedStringArray = fullPath.split( delimiter )
 	
 	path = delimiter.join( split.slice( 0, -1 ))
 	name = ".".join(split[-1].split( "." ).slice(0,-1))
 	
-	MHEPUtils.debug( "Export data fetched:" )
-	MHEPUtils.debug( "- path is \"" + path + "\"" )
-	MHEPUtils.debug( "- main file is \"" + name + "\"" )
+	_debug( "Export data fetched:" )
+	_debug( "- path is \"" + path + "\"" )
+	_debug( "- main file is \"" + name + "\"" )
