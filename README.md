@@ -37,6 +37,7 @@ The add-on resaves large files (.pck, .wasm) with gzip compression and adds the 
 1. Install the addon from [AssetLib](https://godotengine.org/asset-library/asset/3862) or from source (copy `addons` folder to your project directory)
 2. Enable the plugin in your Project Settings.
 3. Export your project to Web.
+4. Note: If you are using custom HTML, $headincluded must be present; otherwise, it won't work. You can ignore this advice if you aren't using it.
 
 ## Detailed explanation
 
