@@ -13,14 +13,6 @@ func _supports_platform( platform: EditorExportPlatform ) -> bool:
 	return ( platform is EditorExportPlatformWeb )
 
 
-func _get_export_options_overrides( platform: EditorExportPlatform ) -> Dictionary:
-	#TODO: Append instead of override
-	return {
-		"html/head_include": 
-			"<script type=\"text/javascript\" src=\"pako_inflate.min.js\"></script>"
-	}
-
-
 func _export_begin( 
 		_features: PackedStringArray, 
 		is_debug: bool, 

@@ -14,11 +14,20 @@
 </h3>
 
 <p align="center">
+    Speeds up your game loading even if your server does not support gzip compression
+</p>
+
+<br/>
+
+<p align="center">
     <i><b>Supported host platforms (where your editor runs):</b> Windows x64 only</i>
     <br/>
     <i>Please <a href="https://github.com/markushevpro/godot-minimize-html-build/issues/new">create an issue</a> if you need support for other operating systems.</i>
 </p>
 
+## Recent updates
+- Custom templates support & disabled Head Includes override
+- itch.io & servers with gzip compression support
 
 <br />
 
@@ -29,10 +38,10 @@
 </p>
 
 ## How it works
-The add-on resaves large files (.pck, .wasm) with gzip compression and adds the ability to load gzip-compressed assets in the browser using [pako](https://github.com/nodeca/pako). Nothing else will be changed in your files.
+The add-on resaves large files (.pck, .wasm) with gzip compression, minifies core files (.js and .html) and adds the ability to load gzip-compressed assets in the browser using [pako](https://github.com/nodeca/pako). Nothing else will be changed in your files.
 
 ## Usage
-1. Install the addon from AssetLib (coming soon) or from source (copy `addons` folder to your project directory)
+1. Install the addon from [AssetLib](https://godotengine.org/asset-library/asset/3862) or from source (copy `addons` folder to your project directory)
 2. Enable the plugin in your Project Settings.
 3. Export your project to Web.
 
@@ -41,9 +50,9 @@ The add-on resaves large files (.pck, .wasm) with gzip compression and adds the 
 ### Step-by-step algorythm
 1. Godot creates release files.
 2. The addon copies additional and temporary files to the build directory (pako.js, compressor, minifier)
-3. Using a tool written in Go (see `/vendor/bin/compress/src` in the plugin directory), the **.pck** and **.wasm** files are converted to a gzip enconding
-4. Using [minify by tdewolff](https://github.com/tdewolff/minify), the **.html** and **.js** files are minified. 
-5. Using some shitty code, parts of the main JS file are replaced to support the use of pako.
+3. Using a [tool written in Go](#why-golang-compresser) (see `/vendor/bin/compress/src` in the plugin directory), the **.pck** and **.wasm** files are converted to a gzip enconding
+4. Using [minify by tdewolff](https://github.com/tdewolff/minify), the core **.html** and **.js** files are minified. 
+5. Using some crappy code, parts of the core JS and HTML files are slightly adapted to support the use of pako.
 6. The directory is cleared of temporary files (compressor, minifier).
 
 ### Why Golang compresser?
