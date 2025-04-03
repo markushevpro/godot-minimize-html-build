@@ -87,7 +87,7 @@ func _process_file( compresser: Callable, filename: String ):
 func _convert_to_gzip( filename: String ):
 	match _utils.os:
 		"Windows":
-			_process_cmd_win([ "compress.exe " + filename ])
+			_process_cmd_win([ "compress.exe \"" + filename + "\"" ])
 		_:
 			# TODO: Different OS compression script
 			MHEPUtils.warn( "Compression is not implemented yet for host OS " + _utils.os )
@@ -110,7 +110,7 @@ func _minify( filename ):
 func _minify_html( filename ):
 	match _utils.os:
 		"Windows":
-			_process_cmd_win([ "minify.exe -o " + filename + "_ " + filename ])
+			_process_cmd_win([ "minify.exe -o \"" + filename + "_\" \"" + filename + "\"" ])
 		_:
 			# TODO: Different OS minifying scripts
 			MHEPUtils.warn( "Minifying is not implemented yet for host OS " + _utils.os )
@@ -119,7 +119,7 @@ func _minify_html( filename ):
 func _minify_js( filename ):
 	match _utils.os:
 		"Windows":
-			_process_cmd_win([ "minify.exe -o " + filename + "_ " + filename + " --js-keep-var-names --js-precision 0" ])
+			_process_cmd_win([ "minify.exe -o \"" + filename + "_\" \"" + filename + "\" --js-keep-var-names --js-precision 0" ])
 		_:
 			# TODO: Different OS minifying scripts
 			MHEPUtils.warn( "Minifying is not implemented yet for host OS " + _utils.os )
