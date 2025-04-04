@@ -44,8 +44,14 @@ static func _replace_v4_x( content: String ) -> String:
 	
 	# Fix minifying bug
 	fixed = fixed.replacen(
-		":+num",
-		":Number(num)"
+			":+num",
+			":Number(num)"
+	)
+	
+	# Fix minifying bug for threads
+	fixed = fixed.replacen(
+			"MAX_SAFE_INTEGER?+heap_value",
+			"MAX_SAFE_INTEGER?Number(heap_value)"
 	)
 	
 	# Fix loadFetch
