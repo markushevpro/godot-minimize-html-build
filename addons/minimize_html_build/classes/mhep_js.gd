@@ -3,6 +3,37 @@ class_name MHEPJS
 
 static func fix( info: MHEPExportInfo ):
 	_fix_main_js( info )
+	_fix_worker_js( info )
+
+
+static func _debug( text: String ):
+	MHEPUtils.debug( "JS", text )
+
+
+static func _fix_worker_js( info: MHEPExportInfo ):
+	var path = info.in_target_dir( info.name + ".service.worker.js" )
+	
+	if ( FileAccess.file_exists( path )):
+		_debug( "Found service worker" )
+		
+		var content = _get_content( path )
+		var fixed = content
+		
+		var regex = RegEx.create_from_string( "const CACHED_FILES *= *\\[.+\\]" )
+		var found = regex.search( fixed )
+		
+		if found:
+			var orig_str = found.strings[0]
+			var fixed_str = found.strings[0].replacen( "]", ",\"pako_inflate.min.js\"]" )
+			
+			fixed = fixed.replacen( orig_str, fixed_str )
+			
+			if fixed != content:
+				_save_content( path, fixed )
+				_debug( "Successfully fixed Service Worker" )
+				return
+				
+		_debug( "Service Worker is NOT fixed. PWA may not work as expected" )
 
 
 static func _fix_main_js( info: MHEPExportInfo ):
@@ -68,8 +99,8 @@ static func _replace_v4_x( content: String ) -> String:
 	)
 	
 	if fixed != content:
-		MHEPUtils.debug( "JS", "Successfully fixed JS" )
+		_debug( "Successfully fixed JS" )
 	else:
-		MHEPUtils.debug( "JS", "JS is NOT fixed. Build may not work as expected" )
+		_debug( "JS is NOT fixed. Build may not work as expected" )
 		
 	return fixed
