@@ -26,6 +26,7 @@
 </p>
 
 ## Recent updates
+- Threads & PWA support
 - Custom templates support & disabled Head Includes override
 - itch.io & servers with gzip compression support
 
