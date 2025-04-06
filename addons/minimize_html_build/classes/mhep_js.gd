@@ -94,8 +94,8 @@ static func _replace_v4_x( content: String ) -> String:
 		
 	# Fix preload
 	fixed = fixed.replacen(
-			"me.preloadedFiles.push({path:destPath||pathOrBuffer,buffer:buf}),",
-			"buf.arrayBuffer().then(buffer=>me.preloadedFiles.push({path:destPath||pathOrBuffer,buffer})),"
+			"me.preloadedFiles.push({path:destPath||pathOrBuffer,buffer:buf}),Promise.resolve()",
+			"buf.arrayBuffer().then(buffer=>{me.preloadedFiles.push({path:destPath||pathOrBuffer,buffer});Promise.resolve()})"
 	)
 	
 	if fixed != content:
