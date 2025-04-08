@@ -32,7 +32,7 @@ The plugin increases the speed of downloading the bundle, regardless of the comp
 
 ## Summary table for the builds without debug info
 					
-| File || File size | Average download time	|||
+| File || File size || Average download time	||
 |---|-|---|:-:|:-:|:-:|
 ||||no compression | gzip | brotli
 |.wasm
@@ -52,7 +52,7 @@ The plugin increases the speed of downloading the bundle, regardless of the comp
 
 ## Summary table for the builds with debug info
 					
-| File || File size | Average download time	|||
+| File || File size || Average download time	||
 |---|-|---|:-:|:-:|:-:|
 ||||no compression | gzip | brotli
 |.wasm
