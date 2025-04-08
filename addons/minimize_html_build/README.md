@@ -14,7 +14,11 @@
 </h3>
 
 <p align="center">
-    Speeds up your game loading even if your server does not support gzip compression
+    Speeds up your game loading even if your server does not support gzip compression<br/><br/>
+    <blockquote align="center">
+        <br/><strong style="color: red">DISCLAIMER</strong><br/><br/>
+        The compression ratio of a .pck file depends heavily on the set of assets in your project.<br/>Loading speed depends on server settings.<br/>On average, loading speed when using a plugin can be from <strong>10% to 100%</strong> faster.<br/><br/><strong>See comparison calculations <a href="https://github.com/markushevpro/godot-minimize-html-build/blob/master/COMPARE.md">here</a>.</strong><br/><br/>
+    </blockquote>
 </p>
 
 <br/>
