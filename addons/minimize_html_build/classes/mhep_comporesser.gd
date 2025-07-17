@@ -57,6 +57,8 @@ func _get_OS_files() -> Array:
 	match _utils.os:
 		"Windows":
 			return [ "compress.exe", "minify.exe" ]
+		"Linux":
+			return [ "compress", "minify_linux" ]
 		_:
 			# TODO: Different OS compression script
 			MHEPUtils.warn( "Compression is not implemented yet for host OS " + _utils.os )
@@ -88,6 +90,8 @@ func _convert_to_gzip( filename: String ):
 	match _utils.os:
 		"Windows":
 			_process_cmd_win([ "compress.exe \"" + filename + "\"" ])
+		"Linux":
+			_process_cmd_linux([ "./compress \"" + filename + "\"" ])
 		_:
 			# TODO: Different OS compression script
 			MHEPUtils.warn( "Compression is not implemented yet for host OS " + _utils.os )
@@ -111,6 +115,8 @@ func _minify_html( filename ):
 	match _utils.os:
 		"Windows":
 			_process_cmd_win([ "minify.exe -o \"" + filename + "_\" \"" + filename + "\"" ])
+		"Linux":
+			_process_cmd_linux([ "./minify_linux -o \"" + filename + "_\" \"" + filename + "\"" ])
 		_:
 			# TODO: Different OS minifying scripts
 			MHEPUtils.warn( "Minifying is not implemented yet for host OS " + _utils.os )
@@ -120,6 +126,8 @@ func _minify_js( filename ):
 	match _utils.os:
 		"Windows":
 			_process_cmd_win([ "minify.exe -o \"" + filename + "_\" \"" + filename + "\" --js-keep-var-names --js-precision 0" ])
+		"Linux":
+			_process_cmd_linux([ "./minify_linux -o \"" + filename + "_\" \"" + filename + "\" --js-keep-var-names --js-precision 0" ])
 		_:
 			# TODO: Different OS minifying scripts
 			MHEPUtils.warn( "Minifying is not implemented yet for host OS " + _utils.os )
@@ -138,4 +146,16 @@ func _process_cmd_win( commands ):
 	OS.execute( 
 			"CMD.exe", 
 			[ "/C", " && ".join( actions ) ]
+	)
+
+
+func _process_cmd_linux( commands ):
+	var path = _info.target_dir.get_current_dir()
+	var actions = commands
+	
+	actions.push_front( "cd " + path )
+	
+	OS.execute( 
+			"/bin/bash", 
+			[ "-c", " && ".join( actions ) ]
 	)
