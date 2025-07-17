@@ -24,12 +24,13 @@
 <br/>
 
 <p align="center">
-    <i><b>Supported host platforms (where your editor runs):</b> Windows x64 only</i>
+    <i><b>Supported host platforms (where your editor runs):</b> Windows x64 and Linux x64</i>
     <br/>
     <i>Please <a href="https://github.com/markushevpro/godot-minimize-html-build/issues/new">create an issue</a> if you need support for other operating systems.</i>
 </p>
 
 ## Recent updates
+- 🐧 **Linux support added!** Now works on Linux x64 platforms
 - Threads & PWA support
 - Custom templates support & disabled Head Includes override
 - itch.io & servers with gzip compression support
@@ -79,6 +80,19 @@ There are no plans at the moment.
 
 <br/>
 <hr />
+<br/>
+
+## 🙏 Acknowledgments
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/markushevpro/godot-minimize-html-build/refs/heads/master/assets/icon.png" width="64" height="64" alt="Plugin Icon"/>
+    <br/>
+    <strong>Huge thanks to <a href="https://github.com/markushevpro">@markushevpro</a> (<a href="https://t.me/aturbidflow">@aturbidflow</a>) for creating this amazing plugin!</strong>
+    <br/>
+    <br/>
+    🐧 Linux support added by the community with ❤️
+</p>
+
 <br/>
 
 [@aturbidflow](https://t.me/aturbidflow) – Telegram
