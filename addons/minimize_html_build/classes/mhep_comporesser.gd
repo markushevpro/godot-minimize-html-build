@@ -58,7 +58,7 @@ func _get_OS_files() -> Array:
 		"Windows":
 			return [ "compress.exe", "minify.exe" ]
 		"Linux":
-			return [ "compress", "minify_linux" ]
+			return [ "compress", "minify" ]
 		_:
 			# TODO: Different OS compression script
 			MHEPUtils.warn( "Compression is not implemented yet for host OS " + _utils.os )
@@ -116,7 +116,7 @@ func _minify_html( filename ):
 		"Windows":
 			_process_cmd_win([ "minify.exe -o \"" + filename + "_\" \"" + filename + "\"" ])
 		"Linux":
-			_process_cmd_linux([ "./minify_linux -o \"" + filename + "_\" \"" + filename + "\"" ])
+			_process_cmd_linux([ "./minify -o \"" + filename + "_\" \"" + filename + "\"" ])
 		_:
 			# TODO: Different OS minifying scripts
 			MHEPUtils.warn( "Minifying is not implemented yet for host OS " + _utils.os )
@@ -127,7 +127,7 @@ func _minify_js( filename ):
 		"Windows":
 			_process_cmd_win([ "minify.exe -o \"" + filename + "_\" \"" + filename + "\" --js-keep-var-names --js-precision 0" ])
 		"Linux":
-			_process_cmd_linux([ "./minify_linux -o \"" + filename + "_\" \"" + filename + "\" --js-keep-var-names --js-precision 0" ])
+			_process_cmd_linux([ "./minify -o \"" + filename + "_\" \"" + filename + "\" --js-keep-var-names --js-precision 0" ])
 		_:
 			# TODO: Different OS minifying scripts
 			MHEPUtils.warn( "Minifying is not implemented yet for host OS " + _utils.os )

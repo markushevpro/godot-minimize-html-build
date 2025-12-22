@@ -85,6 +85,7 @@ which will output
                                   directories
       -b, --bundle                Bundle files by concatenation into a single file
           --css-precision int     Number of significant digits to preserve in numbers, 0 is all
+          --css-version int       CSS version to toggle supported optimizations (e.g. 2), by default 0 is the latest version
           --exclude []string      Path exclusion pattern, excludes paths from being processed
           --ext map[string]string
                                   Filename extension mapping to filetype (eg. css or text/css)
@@ -99,6 +100,7 @@ which will output
           --html-keep-end-tags    Preserve all end tags
           --html-keep-quotes      Preserve quotes around attribute values
           --html-keep-whitespace  Preserve whitespace characters but still collapse multiple into one
+      -i, --inplace               Minify input files in-place instead of setting output
           --include []string      Path inclusion pattern, includes paths previously excluded
           --js-keep-var-names     Preserve original variable names
           --js-precision int      Number of significant digits to preserve in numbers, 0 is all
@@ -130,16 +132,23 @@ which will output
 ### Types
 Default extension mapping to mimetype (and thus minifier). Use `--ext` to add more mappings, see below for an example.
 
+	asp          text/asp
 	css          text/css
+	ejs          text/x-ejs-template
+	gohtml       text/x-go-template
+	handlebars   text/x-handlebars-template
 	htm          text/html
 	html         text/html
 	js           application/javascript
 	json         application/json
 	mjs          application/javascript
+	mustache     text/x-mustache-template
+	php          application/x-httpd-php
 	rss          application/rss+xml
 	svg          image/svg+xml
+	tmpl         text/x-template
 	webmanifest  application/manifest+json
-	xhtml        application/xhtml-xml
+	xhtml        application/xhtml+xml
 	xml          text/xml
 
 ## Examples
