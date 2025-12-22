@@ -24,15 +24,15 @@
 <br/>
 
 <p align="center">
-    <i><b>Supported host platforms (where your editor runs):</b> Windows x64 only</i>
+    <i><b>Supported host platforms (where your editor runs):</b> Windows x64 and Linux x64</i>
     <br/>
     <i>Please <a href="https://github.com/markushevpro/godot-minimize-html-build/issues/new">create an issue</a> if you need support for other operating systems.</i>
 </p>
 
 ## Recent updates
-- Threads & PWA support
-- Custom templates support & disabled Head Includes override
-- itch.io & servers with gzip compression support
+- 🐧 **Linux support added!** Now works on Linux x64 platforms
+- All PCK and WASM files in export folder now compressing automatically
+- Fixes & vendor udpates
 
 <br />
 
@@ -79,6 +79,14 @@ There are no plans at the moment.
 
 <br/>
 <hr />
+<br/>
+
+## 🙏 Acknowledgments
+
+<p align="center">
+    🐧 Linux support added by the community with ❤️
+</p>
+
 <br/>
 
 [@aturbidflow](https://t.me/aturbidflow) – Telegram

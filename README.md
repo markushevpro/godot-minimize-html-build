@@ -31,9 +31,8 @@
 
 ## Recent updates
 - 🐧 **Linux support added!** Now works on Linux x64 platforms
-- Threads & PWA support
-- Custom templates support & disabled Head Includes override
-- itch.io & servers with gzip compression support
+- All PCK and WASM files in export folder now compressing automatically
+- Fixes & vendor udpates
 
 <br />
 
@@ -85,11 +84,6 @@ There are no plans at the moment.
 ## 🙏 Acknowledgments
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/markushevpro/godot-minimize-html-build/refs/heads/master/assets/icon.png" width="64" height="64" alt="Plugin Icon"/>
-    <br/>
-    <strong>Huge thanks to <a href="https://github.com/markushevpro">@markushevpro</a> (<a href="https://t.me/aturbidflow">@aturbidflow</a>) for creating this amazing plugin!</strong>
-    <br/>
-    <br/>
     🐧 Linux support added by the community with ❤️
 </p>
 
