@@ -45,3 +45,11 @@ func get_file_size( relative: String ) -> int:
 	var size = f.get_length()
 	f.close()
 	return size
+
+func get_files( ext: String ) -> Array:
+	var all: Array = _info.get_target_files()
+	
+	return all.filter(
+		func( file: String ):
+			return file.get_extension().to_lower() == ext.to_lower()
+	)

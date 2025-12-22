@@ -30,15 +30,22 @@ static func _debug( text: String ):
 func _compress():
 	if _compressers != null:
 		_copy_compressers()
-		
-		_process_file( _convert_to_gzip, _info.name + ".pck" )
-		_process_file( _convert_to_gzip, _info.name + ".wasm" )
+		_compress_big_files()
+			
 		_process_file( _minify, _info.name + ".html" )
 		_process_file( _minify, _info.name + ".js" )
 		
 		_remove_compressers()
 	else:
 		MHEPUtils.warn( "Compresser executable is not defined. Skipping" )
+
+
+func _compress_big_files():
+		var gzip_files = _utils.get_files( 'pck' )
+		gzip_files.append_array( _utils.get_files( 'wasm' ))
+		
+		for file in gzip_files:
+			_process_file( _convert_to_gzip, file )
 
 
 func _copy_compressers():

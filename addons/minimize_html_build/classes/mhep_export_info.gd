@@ -28,6 +28,10 @@ func in_target_dir( relative: String ) -> String:
 	return target_dir.get_current_dir() + delimiter + relative
 
 
+func get_target_files() -> Array:
+	return target_dir.get_files()
+
+
 static func _debug( text: String ):
 	MHEPUtils.debug( "INFO", text )
 
