@@ -22,6 +22,7 @@ func main() {
 	// js:
 	// else:
 	// - comporess gzip
+	compress(source)
 }
 
 func compress( source string ) {
