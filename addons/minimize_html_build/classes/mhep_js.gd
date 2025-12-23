@@ -69,38 +69,70 @@ static func _replace_by_version ( content: String ) -> String:
 	return content
 
 
-# Tested versions: 4.1 - 4.4
+# Tested versions: 4.1 - 4.5
 static func _replace_v4_x( content: String ) -> String:
-	var fixed = content
+	var state = {
+		"current": content,
+		"previous": content,
+		"error": false
+	}
 	
 	# Fix minifying bug
-	fixed = fixed.replacen(
-			":+num",
-			":Number(num)"
+	_js_replace( 
+		state, 
+		":+num", 
+		":Number(num)", 
+		"minifying bug"
 	)
-	
+
 	# Fix minifying bug for threads
-	fixed = fixed.replacen(
-			"MAX_SAFE_INTEGER?+heap_value",
-			"MAX_SAFE_INTEGER?Number(heap_value)"
+	_js_replace( 
+		state, 
+		"MAX_SAFE_INTEGER?+heap_value", 
+		"MAX_SAFE_INTEGER?Number(heap_value)", 
+		"threads"
 	)
 	
 	# Fix loadFetch
 	# 1.0.1 - fix gzip server response
-	fixed = fixed.replacen(
-			"const tr=getTrackedResponse(response,tracker[file]);return raw?Promise.resolve(tr):tr.arrayBuffer()}", 
-			"const tr=getTrackedResponse(response,tracker[file]);return Promise.resolve(tr.arrayBuffer().then(buffer=>{try{return new Response(pako.inflate(buffer))}catch(e){return new Response(buffer)}}))}"
-	)
-		
-	# Fix preload
-	fixed = fixed.replacen(
-			"me.preloadedFiles.push({path:destPath||pathOrBuffer,buffer:buf}),Promise.resolve()",
-			"buf.arrayBuffer().then(buffer=>{me.preloadedFiles.push({path:destPath||pathOrBuffer,buffer});Promise.resolve()})"
+	_js_replace(
+		state,
+		"const tr=getTrackedResponse(response,tracker[file]);return raw?Promise.resolve(tr):tr.arrayBuffer()}",
+		"const tr=getTrackedResponse(response,tracker[file]);return Promise.resolve(tr.arrayBuffer().then(buffer=>{try{return new Response(pako.inflate(buffer))}catch(e){return new Response(buffer)}}))}",
+		"server response"
 	)
 	
-	if fixed != content:
+	# Fix preload
+	_js_replace(
+		state,
+		"me.preloadedFiles.push({path:destPath||pathOrBuffer,buffer:buf}),Promise.resolve()",
+		"buf.arrayBuffer().then(buffer=>{me.preloadedFiles.push({path:destPath||pathOrBuffer,buffer});Promise.resolve()})",
+		"preload"
+	)
+	
+	# Fix aside wasms
+	_js_replace(
+		state,
+		"loadWebAssemblyModule=(binary,flags,libName,localScope,handle)=>{var metadata",
+		"loadWebAssemblyModule=(raw,flags,libName,localScope,handle)=>{var binary=pako.inflate(raw);var metadata",
+		"aside wasms"
+	)
+	
+	if not state.error:
 		_debug( "Successfully fixed JS" )
 	else:
 		_debug( "JS is NOT fixed. Build may not work as expected" )
 		
-	return fixed
+	return state.current
+
+
+static func _js_replace( state: Dictionary, what: String, with: String, desc: String ):
+	if state.previous.contains( what ):
+		state.current = state.current.replacen( what, with )
+		
+		if state.current == state.previous:
+			_debug( "Failed to fix " + desc + "!" )
+			state.error = true
+			return
+	else:
+		_debug("Not found: " + desc )
