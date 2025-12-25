@@ -51,6 +51,10 @@ func _compress_big_files():
 func _copy_compressers():
 	for filename in _compressers:
 		_copier.copy_from_bin( filename )
+		
+		if _utils.os == "Linux":
+			_process_cmd_linux([ "chmod +x " + filename ])
+			_debug("Permissions for " + filename + " is " + str(FileAccess.get_unix_permissions( _info.in_target_dir( filename ) )))
 
 
 func _remove_compressers():

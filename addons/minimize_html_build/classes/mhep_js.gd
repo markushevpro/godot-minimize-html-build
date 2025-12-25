@@ -135,4 +135,4 @@ static func _js_replace( state: Dictionary, what: String, with: String, desc: St
 			state.error = true
 			return
 	else:
-		_debug("Not found: " + desc )
+		_debug("The issue doesn't occur: " + desc )
