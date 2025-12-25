@@ -23,7 +23,8 @@ func copy_and_check( filename: String, subdir = "" ):
 	
 	DirAccess.copy_absolute(
 			info.in_addon_dir( fullname ), 
-			target
+			target,
+			777
 	)
 	
 	if FileAccess.file_exists( target ):
