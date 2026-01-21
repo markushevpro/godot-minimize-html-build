@@ -25,7 +25,16 @@ static func warn( text: String ):
 
 static func debug( prefix: String, text: String ):
 	if _debug:
-		var _pre = " " if prefix == "" else " [" + prefix + "] "
+		var _pre
+		
+		match prefix:
+			"":
+				_pre = " "
+			"^":
+				_pre = " ^^^"
+			_:
+				_pre = " [" + prefix + "] "
+				
 		print( "[MHEP]" + _pre + text )
 
 
@@ -42,9 +51,15 @@ static func string_size( numeric: int ) -> String:
 
 func get_file_size( relative: String ) -> int:
 	var f = FileAccess.open( _info.in_target_dir( relative ), FileAccess.READ )
+	
+	if f == null:
+		debug( "FATAL", "Cannot open file: " + _info.in_target_dir( relative ))
+		return -1
+	
 	var size = f.get_length()
 	f.close()
 	return size
+
 
 func get_files( ext: String ) -> Array:
 	var all: Array = _info.get_target_files()

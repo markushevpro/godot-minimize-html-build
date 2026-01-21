@@ -82,19 +82,29 @@ func _process_file( compresser: Callable, filename: String ):
 		
 		compresser.call( filename )
 		
-		_info.target_dir.remove( filename )
-		_info.target_dir.rename( filename + "_", filename )
-		
-		var new_size = _utils.get_file_size( filename )
-		var diff = original_size - new_size
-		
-		_debug( 
-				filename + 
-				" converted:" + 
-				" from " + MHEPUtils.string_size( original_size ) + 
-				" to " + MHEPUtils.string_size( new_size ) +
-				" (saved " + MHEPUtils.string_size( diff ) + ")"
-		)
+		var new_size = _utils.get_file_size( filename + "_" )
+
+		if new_size <= original_size:
+			_info.target_dir.remove( filename )
+			_info.target_dir.rename( filename + "_", filename )
+			
+			var diff = original_size - new_size
+			
+			_debug( 
+					filename + 
+					" converted:" + 
+					" from " + MHEPUtils.string_size( original_size ) + 
+					" to " + MHEPUtils.string_size( new_size ) +
+					" (saved " + MHEPUtils.string_size( diff ) + ")"
+			)
+		else:
+			_info.target_dir.remove( filename + "_" )
+			
+			_debug(
+				"The compressed version of the file \"" +
+				filename +
+				"\" is larger then the original. Rolling back."
+			)
 
 
 func _convert_to_gzip( filename: String ):
@@ -147,6 +157,7 @@ func _minify_js( filename ):
 func _process_cmd_win( commands ):
 	var path = _info.target_dir.get_current_dir()
 	var actions = commands
+	var out = []
 	
 	actions.push_front( "cd " + path )
 	
@@ -154,19 +165,32 @@ func _process_cmd_win( commands ):
 	if ":" in path:
 		actions.push_front( path.split(":")[0] + ":" )
 	
-	OS.execute( 
+	var res = OS.execute( 
 			"CMD.exe", 
-			[ "/C", " && ".join( actions ) ]
+			[ "/C", " && ".join( actions ) ],
+			out,
+			true
 	)
+	
+	if res != 0:
+		_utils.debug( "^", "(last process finished with code " + str(res) + ")")
+		_utils.debug( "", "Process output: \n\n" + "\n".join( out ))
 
 
 func _process_cmd_linux( commands ):
 	var path = _info.target_dir.get_current_dir()
 	var actions = commands
+	var out = []
 	
 	actions.push_front( "cd " + path )
 	
-	OS.execute( 
+	var res = OS.execute( 
 			"/bin/bash", 
-			[ "-c", " && ".join( actions ) ]
+			[ "-c", " && ".join( actions ) ],
+			out,
+			true
 	)
+	
+	if res != 0:
+		_utils.debug( "^", "(last process finished with code " + str(res) + ")")
+		_utils.debug( "", "Process output: \n\n" + "\n".join( out ))
