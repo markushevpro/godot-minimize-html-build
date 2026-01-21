@@ -114,7 +114,7 @@ static func _replace_v4_x( content: String ) -> String:
 	_js_replace(
 		state,
 		"loadWebAssemblyModule=(binary,flags,libName,localScope,handle)=>{var metadata",
-		"loadWebAssemblyModule=(raw,flags,libName,localScope,handle)=>{var binary=pako.inflate(raw);var metadata",
+		"loadWebAssemblyModule=(raw,flags,libName,localScope,handle)=>{var binary;try{binary=pako.inflate(raw)}catch(e){binary=raw};var metadata",
 		"aside wasms"
 	)
 	

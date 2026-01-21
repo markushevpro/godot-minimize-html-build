@@ -24,7 +24,7 @@ func _export_begin(
 	if features.has("web"):
 		_runned = true
 		MHEPUtils.enable_debug( is_debug )
-		MHEPUtils.debug( "", "---- EXPORT STARTED ----" )
+		MHEPUtils.debug( "v 1.1.3", "---- EXPORT STARTED ----" )
 		
 		_export_info = MHEPExportInfo.new( path )
 

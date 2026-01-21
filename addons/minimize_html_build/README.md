@@ -2,31 +2,31 @@
 <br />
 
 <h2 align="center">
-    <img alt="Minimize HTML Build" src="https://raw.githubusercontent.com/markushevpro/godot-minimize-html-build/refs/heads/master/assets/icon.png" />
-    <br/>
-    <br/>
-    Godot "Minimize Web Build" Addon
+	<img alt="Minimize HTML Build" src="https://raw.githubusercontent.com/markushevpro/godot-minimize-html-build/refs/heads/master/assets/icon.png" />
+	<br/>
+	<br/>
+	Godot "Minimize Web Build" Addon
   <br/>
 </h2>
 
 <h3 align="center">
-    A minification tool for Godot 4.3+ that automatically compresses files in your web build
+	A minification tool for Godot 4.3+ that automatically compresses files in your web build
 </h3>
 
 <p align="center">
-    Speeds up your game loading even if your server does not support gzip compression<br/><br/>
-    <blockquote align="center">
-        <br/><strong style="color: red">DISCLAIMER</strong><br/><br/>
-        The compression ratio of a .pck file depends heavily on the set of assets in your project.<br/>Loading speed depends on server settings.<br/>On average, loading speed when using a plugin can be from <strong>10% to 100%</strong> faster.<br/><br/><strong>See comparison calculations <a href="https://github.com/markushevpro/godot-minimize-html-build/blob/master/COMPARE.md">here</a>.</strong><br/><br/>
-    </blockquote>
+	Speeds up your game loading even if your server does not support gzip compression<br/><br/>
+	<blockquote align="center">
+		<br/><strong style="color: red">DISCLAIMER</strong><br/><br/>
+		The compression ratio of a .pck file depends heavily on the set of assets in your project.<br/>Loading speed depends on server settings.<br/>On average, loading speed when using a plugin can be from <strong>10% to 100%</strong> faster.<br/><br/><strong>See comparison calculations <a href="https://github.com/markushevpro/godot-minimize-html-build/blob/master/COMPARE.md">here</a>.</strong><br/><br/>
+	</blockquote>
 </p>
 
 <br/>
 
 <p align="center">
-    <i><b>Supported host platforms (where your editor runs):</b> Windows x64 and Linux x64</i>
-    <br/>
-    <i>Please <a href="https://github.com/markushevpro/godot-minimize-html-build/issues/new">create an issue</a> if you need support for other operating systems.</i>
+	<i><b>Supported host platforms (where your editor runs):</b> Windows x64 and Linux x64</i>
+	<br/>
+	<i>Please <a href="https://github.com/markushevpro/godot-minimize-html-build/issues/new">create an issue</a> if you need support for other operating systems.</i>
 </p>
 
 ## Recent updates
@@ -37,9 +37,9 @@
 <br />
 
 <p align="center">
-    <img alt="Godot 4.3+" src="https://img.shields.io/badge/Godot-4.3+-blue" />
-    <img alt="GitHub License" src="https://img.shields.io/github/license/markushevpro/godot-minimize-html-build" />
-    <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/t/markushevpro/godot-minimize-html-build" />
+	<img alt="Godot 4.3+" src="https://img.shields.io/badge/Godot-4.3+-blue" />
+	<img alt="GitHub License" src="https://img.shields.io/github/license/markushevpro/godot-minimize-html-build" />
+	<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/t/markushevpro/godot-minimize-html-build" />
 </p>
 
 ## How it works
