@@ -43,5 +43,5 @@ func _extract_path_info( fullPath: String ):
 	name = ".".join(split[-1].split( "." ).slice(0,-1))
 	
 	_debug( "Export data fetched:" )
-	_debug( "- path is \"" + path + "\"" )
+	_debug( "- path is \"" + path + "\" (full absolute path: \"" + ProjectSettings.globalize_path("res://").path_join( path ) + "\")" )
 	_debug( "- main file is \"" + name + "\"" )

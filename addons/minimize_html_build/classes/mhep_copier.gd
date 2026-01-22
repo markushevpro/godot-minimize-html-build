@@ -1,6 +1,7 @@
 class_name MHEPCopier
 
 var info: MHEPExportInfo
+var aborted: bool
 
 
 func _init( _info: MHEPExportInfo ):
@@ -21,11 +22,16 @@ func copy_and_check( filename: String, subdir = "" ):
 	var fullname = filename if subdir == "" else subdir + info.delimiter + filename
 	var target = info.in_target_dir( filename )
 	
-	DirAccess.copy_absolute(
+	var error = DirAccess.copy_absolute(
 			info.in_addon_dir( fullname ), 
 			target,
 			511
 	)
+	
+	if error:
+		MHEPUtils.debug( "FATAL", "Can't open " + filename + " in project directory. Aborting" )
+		aborted = true
+		return
 	
 	if FileAccess.file_exists( target ):
 		MHEPUtils.debug( "COPY", filename + " copied" )

@@ -34,6 +34,10 @@ func _export_end():
 		# Run compression after all project files were created
 		var copier = MHEPCopier.new( _export_info )
 		
+		if copier.aborted:
+			MHEPUtils.debug( "", "---- EXPORT COMPRESSION ABORTED ----" )
+			return
+		
 		MHEPCompresser.compress( copier )
 		MHEPHTML.fix( _export_info )
 		MHEPJS.fix( _export_info )
