@@ -39,6 +39,9 @@ func _export_end():
 			return
 		
 		MHEPCompresser.compress( copier )
-		MHEPHTML.fix( _export_info )
-		MHEPJS.fix( _export_info )
+		
+		if not _export_info.patch:
+			MHEPHTML.fix( _export_info )
+			MHEPJS.fix( _export_info )
+			
 		MHEPUtils.debug( "", "---- EXPORT FINISHED ----" )

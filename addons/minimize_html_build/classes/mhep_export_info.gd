@@ -5,6 +5,9 @@ const delimiter = "/"
 var name = "unknown"
 var path = "./"
 
+var patch = false
+var patch_ext = ""
+
 var local_dir: DirAccess
 var target_dir: DirAccess
 
@@ -41,7 +44,9 @@ func _extract_path_info( fullPath: String ):
 	
 	path = delimiter.join( split.slice( 0, -1 ))
 	name = ".".join(split[-1].split( "." ).slice(0,-1))
+	patch_ext = str(split[-1].split( "." ).slice(-1)[0])
 	
 	_debug( "Export data fetched:" )
 	_debug( "- path is \"" + path + "\" (full absolute path: \"" + ProjectSettings.globalize_path("res://").path_join( path ) + "\")" )
 	_debug( "- main file is \"" + name + "\"" )
+	_debug( "- main ext is \"" + patch_ext + "\"")

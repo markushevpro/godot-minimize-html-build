@@ -6,8 +6,19 @@ var aborted: bool
 
 func _init( _info: MHEPExportInfo ):
 	info = _info
-	_copy_extra_files()
+	if _check_is_full():
+		_copy_extra_files()
+
+
+func _check_is_full() -> bool:
+	var full = info.patch_ext.to_lower() == "html"
 	
+	if not full:
+		info.patch = true
+		MHEPUtils.debug( "INFO", "Standalone PCK. Only compression will be done" )
+	
+	return full
+
 
 func _copy_extra_files():
 	copy_and_check( "pako_inflate.min.js", "vendor" )

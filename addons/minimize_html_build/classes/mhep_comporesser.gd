@@ -18,7 +18,9 @@ func _init( copier: MHEPCopier ):
 	
 	_debug( "- host system: " + _utils.os )
 	_debug( "- compresser file: " + _compressers[0] )
-	_debug( "- minifier file: " + _compressers[1] )
+	
+	if not _info.patch:
+		_debug( "- minifier file: " + _compressers[1] )
 	
 	_compress()
 
@@ -32,8 +34,9 @@ func _compress():
 		_copy_compressers()
 		_compress_big_files()
 			
-		_process_file( _minify, _info.name + ".html" )
-		_process_file( _minify, _info.name + ".js" )
+		if not _info.patch:
+			_process_file( _minify, _info.name + ".html" )
+			_process_file( _minify, _info.name + ".js" )
 		
 		_remove_compressers()
 	else:
@@ -41,6 +44,9 @@ func _compress():
 
 
 func _compress_big_files():
+	if _info.patch:
+		_process_file( _convert_to_gzip, _info.name + "." + _info.patch_ext )
+	else:
 		var gzip_files = _utils.get_files( 'pck' )
 		gzip_files.append_array( _utils.get_files( 'wasm' ))
 		
