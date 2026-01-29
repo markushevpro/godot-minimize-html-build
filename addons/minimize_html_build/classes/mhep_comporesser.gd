@@ -165,7 +165,7 @@ func _process_cmd_win( commands ):
 	var actions = commands
 	var out = []
 	
-	actions.push_front( "cd '" + path + "'" )
+	actions.push_front( "cd \"" + path + "\"" )
 	
 	# Target is on another drive
 	if ":" in path:
