@@ -84,6 +84,14 @@ static func _replace_v4_x( content: String ) -> String:
 		":Number(num)", 
 		"minifying bug"
 	)
+	
+	# Fix 4.6 minifying bug
+	_js_replace( 
+		state, 
+		",___heap_base=end,sbrk_ptr", 
+		";___heap_base=end;var sbrk_ptr", 
+		"4.6 specific minifying bug"
+	)
 
 	# Fix minifying bug for threads
 	_js_replace( 
@@ -115,7 +123,14 @@ static func _replace_v4_x( content: String ) -> String:
 		state,
 		"loadWebAssemblyModule=(binary,flags,libName,localScope,handle)=>{var metadata",
 		"loadWebAssemblyModule=(raw,flags,libName,localScope,handle)=>{var binary;try{binary=pako.inflate(raw)}catch(e){binary=raw};var metadata",
-		"aside wasms"
+		"aside wasms (4.3-4.5)"
+	)
+	
+	_js_replace(
+		state,
+		"loadWebAssemblyModule=(binary,flags,libName,localScope,handle)=>{var needed,metadata",
+		"loadWebAssemblyModule=(raw,flags,libName,localScope,handle)=>{var binary;try{binary=pako.inflate(raw)}catch(e){binary=raw};var needed,metadata",
+		"aside wasms (4.6)"
 	)
 	
 	if not state.error:
