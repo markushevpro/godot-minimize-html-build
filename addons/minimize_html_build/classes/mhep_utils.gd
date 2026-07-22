@@ -1,5 +1,9 @@
 class_name MHEPUtils
 
+const OS_WINDOWS = "Windows"
+const OS_LINUX = "Linux"
+const OS_MACOS = "macOS"
+
 const SIZE_KB = 1024
 const SIZE_MB = SIZE_KB * 1024
 const SIZE_GB = SIZE_MB * 1024
@@ -7,11 +11,13 @@ const SIZE_GB = SIZE_MB * 1024
 static var _debug: bool = true
 
 var os: String = ""
+var arch: String = ""
 var _info: MHEPExportInfo
 
 
 func _init( info: MHEPExportInfo ):
 	os = OS.get_name()
+	arch = "arm" if OS.has_feature("arm") else "x64"
 	_info = info
 
 

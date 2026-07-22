@@ -16,7 +16,7 @@ func _init( copier: MHEPCopier ):
 	_utils = MHEPUtils.new( _info )
 	_compressers = _get_OS_files()
 	
-	_debug( "- host system: " + _utils.os )
+	_debug( "- host system: " + _utils.os + "(" + _utils.arch + " arch)" )
 	_debug( "- compresser file: " + _compressers[0] )
 	
 	if not _info.patch:
@@ -58,7 +58,7 @@ func _copy_compressers():
 	for filename in _compressers:
 		_copier.copy_from_bin( filename )
 		
-		if _utils.os == "Linux":
+		if _utils.os == _utils.OS_LINUX or _utils.os == _utils.OS_MACOS:
 			_process_cmd_linux([ "chmod +x " + filename ])
 			_debug("Permissions for " + filename + " is " + str(FileAccess.get_unix_permissions( _info.in_target_dir( filename ) )))
 
@@ -72,10 +72,15 @@ func _remove_compressers():
 
 func _get_OS_files() -> Array:
 	match _utils.os:
-		"Windows":
+		_utils.OS_WINDOWS:
 			return [ "compress.exe", "minify.exe" ]
-		"Linux":
-			return [ "compress", "minify" ]
+		_utils.OS_LINUX:
+			return [ "compress_linux", "minify_linux" ]
+		_utils.OS_MACOS:
+			if _utils.arch == "arm":
+				return [ "compress_mac_arm", "minify_mac_arm" ]
+			else:
+				return [ "compress_mac_x64", "minify_mac_x64" ]
 		_:
 			# TODO: Different OS compression script
 			MHEPUtils.warn( "Compression is not implemented yet for host OS " + _utils.os )
@@ -114,11 +119,18 @@ func _process_file( compresser: Callable, filename: String ):
 
 
 func _convert_to_gzip( filename: String ):
+	var base = "%s \"" + filename + "\""
+	
 	match _utils.os:
-		"Windows":
-			_process_cmd_win([ "compress.exe \"" + filename + "\"" ])
-		"Linux":
-			_process_cmd_linux([ "./compress \"" + filename + "\"" ])
+		_utils.OS_WINDOWS:
+			_process_cmd_win([ base % "compress.exe" ])
+		_utils.OS_LINUX:
+			_process_cmd_linux([ base % "./compress_linux" ])
+		_utils.OS_MACOS:
+			if _utils.arch == "arm":
+				_process_cmd_mac([ base % "./compress_mac_arm" ])
+			else:
+				_process_cmd_mac([ base % "./compress_mac_x64"])
 		_:
 			# TODO: Different OS compression script
 			MHEPUtils.warn( "Compression is not implemented yet for host OS " + _utils.os )
@@ -139,22 +151,36 @@ func _minify( filename ):
 
 
 func _minify_html( filename ):
+	var base = "%s -o \"" + filename + "_\" \"" + filename + "\""
+	
 	match _utils.os:
-		"Windows":
-			_process_cmd_win([ "minify.exe -o \"" + filename + "_\" \"" + filename + "\"" ])
-		"Linux":
-			_process_cmd_linux([ "./minify -o \"" + filename + "_\" \"" + filename + "\"" ])
+		_utils.OS_WINDOWS:
+			_process_cmd_win([ base % "minify.exe" ])
+		_utils.OS_LINUX:
+			_process_cmd_linux([ base % "./minify_linux" ])
+		_utils.OS_MACOS:
+			if _utils.arch == "arm":
+				_process_cmd_mac([ base % "./minify_mac_arm" ])
+			else:
+				_process_cmd_mac([ base % "./minify_mac_x64"])
 		_:
 			# TODO: Different OS minifying scripts
 			MHEPUtils.warn( "Minifying is not implemented yet for host OS " + _utils.os )
 
 
 func _minify_js( filename ):
+	var base = "%s -o \"" + filename + "_\" \"" + filename + "\" --js-keep-var-names --js-precision 0"
+	
 	match _utils.os:
-		"Windows":
-			_process_cmd_win([ "minify.exe -o \"" + filename + "_\" \"" + filename + "\" --js-keep-var-names --js-precision 0" ])
-		"Linux":
-			_process_cmd_linux([ "./minify -o \"" + filename + "_\" \"" + filename + "\" --js-keep-var-names --js-precision 0" ])
+		_utils.OS_WINDOWS:
+			_process_cmd_win([ base % "minify.exe" ])
+		_utils.OS_LINUX:
+			_process_cmd_linux([ base % "./minify_linux" ])
+		_utils.OS_MACOS:
+			if _utils.arch == "arm":
+				_process_cmd_mac([ base % "./minify_mac_arm" ])
+			else:
+				_process_cmd_mac([ base % "./minify_mac_x64"])
 		_:
 			# TODO: Different OS minifying scripts
 			MHEPUtils.warn( "Minifying is not implemented yet for host OS " + _utils.os )
@@ -182,6 +208,25 @@ func _process_cmd_win( commands ):
 		_utils.debug( "^", "(last process finished with code " + str(res) + ")")
 		_utils.debug( "", "Process output: \n\n" + "\n".join( out ))
 
+
+func _process_cmd_mac( commands ):
+	var path = _info.target_dir.get_current_dir()
+	var actions = commands
+	var out = []
+	
+	actions.push_front( "cd '" + path + "'" )
+	
+	var res = OS.execute( 
+			"/bin/zsh", 
+			[ "-c", " && ".join( actions ) ],
+			out,
+			true
+	)
+	
+	if res != 0:
+		_utils.debug( "^", "(last process finished with code " + str(res) + ")")
+		_utils.debug( "", "Process output: \n\n" + "\n".join( out ))
+	
 
 func _process_cmd_linux( commands ):
 	var path = _info.target_dir.get_current_dir()

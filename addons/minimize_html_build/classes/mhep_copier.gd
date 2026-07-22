@@ -25,7 +25,7 @@ func _copy_extra_files():
 
 
 func copy_from_bin( filename: String ):
-	var folder = filename.split(".")[0]
+	var folder = filename.split(".")[0] if filename.contains(".") else filename.split("_")[0]
 	copy_and_check( filename, info.delimiter.join([ "vendor", "bin", folder ]) )
 
 
