@@ -30,9 +30,9 @@
 </p>
 
 ## Recent updates
-- 🐧 **Linux support added!** Now works on Linux x64 platforms
-- All PCK and WASM files in export folder now compressing automatically
-- Fixes & vendor udpates
+- **MacOS (both x64 and Apple Silicon) support added**
+- Godot 4.7 templates are supported
+- Republished to the new Asset Store
 
 <br />
 
@@ -46,7 +46,7 @@
 The add-on resaves large files (.pck, .wasm) with gzip compression, minifies core files (.js and .html) and adds the ability to load gzip-compressed assets in the browser using [pako](https://github.com/nodeca/pako). Nothing else will be changed in your files.
 
 ## Usage
-1. Install the addon from [AssetLib](https://godotengine.org/asset-library/asset/3862) or from source (copy `addons` folder to your project directory)
+1. Install the addon from [Asset Store](https://store.godotengine.org/asset/aturbidflow/minimize-web-build/) or from source (copy `addons` folder to your project directory)
 2. Enable the plugin in your Project Settings.
 3. Export your project to Web.
 
@@ -84,7 +84,7 @@ There are no plans at the moment.
 ## 🙏 Acknowledgments
 
 <p align="center">
-    🐧 Linux support added by the community with ❤️
+    🐧 Linux and MacOS support added by the community with ❤️
 </p>
 
 <br/>
